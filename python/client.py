@@ -12,11 +12,11 @@ def connectServer(ip, port):
 
     while True:
         try:
-            valueOne = str(input(Style.RESET_ALL + "[*] Enter value of a first number: "))
-            clientSocket.send(valueOne.encode("utf-8"))
+            valueOne = int(input(Style.RESET_ALL + "[*] Enter value of a first number: "))
+            clientSocket.send(str(valueOne).encode("utf-8"))
 
-            valueTwo = str(input("[*] Enter value of a second number: "))
-            clientSocket.send(valueTwo.encode("utf-8"))
+            valueTwo = int(input("[*] Enter value of a second number: "))
+            clientSocket.send(str(valueTwo).encode("utf-8"))
 
             operator = str(input("[*] Enter operator ('+', '-', '*', '/'): "))
             clientSocket.send(operator.encode("utf-8"))
@@ -27,9 +27,13 @@ def connectServer(ip, port):
             option = input(Fore.RED + "\n[*] Do you want continue? (Type y/n): ")
             if option != "y":
                 break
-        except:
-            print(Fore.RED + "[-] Server unresponsive, disconnected!")
-            break
+        except Exception as err:
+            if "base 10" in str(err):
+                print(Fore.YELLOW + f"\n[!] Your value must be number, please try again!")
+                continue
+            else: 
+                print(Fore.RED + "[-] Server unresponsive, disconnected!")
+                break
     clientSocket.close()
 
 if __name__ == "__main__":
