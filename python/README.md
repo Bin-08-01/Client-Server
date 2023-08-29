@@ -14,3 +14,7 @@ Usage:
     For example if you want to run on address 127.0.0.1 and on port 2132 and allow 20 clients to connect to:
              **python server.py 127.0.0.1 2132 20**
 - Open a terminal (or cmd) and Run the clients with the command: **python client.py <ip-server> <port>**
+
+# Example / Ví dụ
+
+![GIF](./../assets/clientserver.gif)
