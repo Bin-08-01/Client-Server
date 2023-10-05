@@ -1,0 +1,4 @@
+guest:guest
+admin:passwordadmin
+minhtri:123456
+mrb1n:mrb1n

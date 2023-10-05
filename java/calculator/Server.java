@@ -4,8 +4,7 @@ import java.net.Socket;
 
 public class Server {
     public static void main(String[] args) {
-        try{
-            ServerSocket serverSocket = new ServerSocket(1236);
+        try(ServerSocket serverSocket = new ServerSocket(1236)){
             System.out.println("[*] Server is running on 1236");
             while (true){
                 Socket clientSocket = serverSocket.accept();

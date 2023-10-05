@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -10,16 +9,13 @@ import java.util.*;
 
 public class Server {
     private List<Socket> clientList = new ArrayList<>();
-
-
     public static void main(String[] args) {
         Server server = new Server();
         server.startServer();
     }
     
     public void startServer() {
-        try {
-            ServerSocket serverSocket = new ServerSocket(1236);
+        try(ServerSocket serverSocket = new ServerSocket(1236)) {
             System.out.println("[*] Server is running on 1236");
             while (true) {
                 Socket clientSocket = serverSocket.accept();
@@ -41,7 +37,7 @@ public class Server {
                     PrintWriter out = new PrintWriter(client.getOutputStream(), true);
                     out.println(msg);
                 } catch (IOException e) {
-                    // e.printStackTrace();
+                    System.out.println("[-] Can't send message to " + ip + ":" + port);
                 }
             }
         }

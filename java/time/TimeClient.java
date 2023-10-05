@@ -45,15 +45,18 @@ public class TimeClient extends JFrame {
         setVisible(true);
     }
     
-    public void Connect() throws Exception{
-        Socket socket = new Socket("localhost", 1237);
-        DataInputStream din = new
-        DataInputStream(socket.getInputStream());
-        writer = new PrintWriter(socket.getOutputStream(), true);
+    public void Connect() {
+        try(Socket socket = new Socket("localhost", 1237)){
+            DataInputStream din = new
+            DataInputStream(socket.getInputStream());
+            writer = new PrintWriter(socket.getOutputStream(), true);
 
-        while (true) {
-            String time = din.readUTF();
-            timeTF.setText(time);
+            while (true) {
+                String time = din.readUTF();
+                timeTF.setText(time);
+            }
+        } catch (IOException e) {
+            System.out.println("[-] Can't connect to server");
         }
     }
     public static void main(String[] args) throws Exception {

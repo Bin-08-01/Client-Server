@@ -52,11 +52,6 @@ public class ClientGUI extends JFrame {
         messageField.setRows(3);
         messageField.setColumns(26);
         setResizable(false);
-        messageField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                sendMessage();
-            }
-        });
 
         sendButton = new JButton("Send");
         sendButton.addActionListener(new ActionListener() {

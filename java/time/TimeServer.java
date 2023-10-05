@@ -13,9 +13,7 @@ public class TimeServer {
     private Boolean check = true;
 
     public TimeServer() {
-        try {
-
-            ServerSocket serverSocket = new ServerSocket(1237);
+        try(ServerSocket serverSocket = new ServerSocket(1237);) {
             System.out.println("[*] Server is running on 1237");
             while (true) {
                 Socket clientSocket = serverSocket.accept();
@@ -23,7 +21,7 @@ public class TimeServer {
                 System.out.println("[+] Client connected: " + infoSocket);
                 Thread clientThread = new Thread(new ClientHandler(clientSocket, infoSocket));
                 clientThread.start();
-                Thread msgThread = new Thread(new MessageReceiver(clientSocket, infoSocket, clientThread.getId()));
+                Thread msgThread = new Thread(new MessageReceiver(clientSocket));
                 msgThread.start();
                 clientList.add(clientThread);
             }
@@ -37,14 +35,10 @@ public class TimeServer {
     }
     
     private class MessageReceiver implements Runnable {
-        private String infoSocket;
         private Socket clientSocket;
-        private Long clientThreadId;
 
-        public MessageReceiver(Socket clientSocket, String infoSocket, Long clientThread) {
+        public MessageReceiver(Socket clientSocket) {
             this.clientSocket = clientSocket;
-            this.infoSocket = infoSocket;
-            this.clientThreadId = clientThread;
         }
 
         @Override

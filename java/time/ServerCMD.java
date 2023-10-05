@@ -8,10 +8,9 @@ import java.util.Vector;
 public class ServerCMD {
 
     public ServerCMD() {
-        try {
+        try(ServerSocket serverSocket = new ServerSocket(1236);) {
             Vector<Thread> clientList = new Vector<>();
 
-            ServerSocket serverSocket = new ServerSocket(1236);
             System.out.println("[*] Server is running on 1236");
             while (true) {
                 Socket clientSocket = serverSocket.accept();
@@ -27,7 +26,7 @@ public class ServerCMD {
         }
     }
     public static void main(String[] args) throws Exception {
-        ServerCMD serverCMD = new ServerCMD();
+        new ServerCMD();
     }
     
     private class ClientHandler implements Runnable {
